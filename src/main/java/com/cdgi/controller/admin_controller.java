@@ -27,6 +27,7 @@ public class admin_controller {
 	@Autowired
 	private WorkerService workerService;
 	
+	@Autowired
 	private WorkerRepository workerRepository;
 	
 	
@@ -70,7 +71,7 @@ public class admin_controller {
 
 	     List<Worker> workers;
 
-	     if (keyword != null && !keyword.trim().isEmpty()) {
+	     if (keyword != null && !keyword.isEmpty()) {
 	         workers = workerService.searchWorkers(keyword);
 	     } else {
 	         workers = workerService.getAllWorkers();
@@ -83,7 +84,7 @@ public class admin_controller {
 	     model.addAttribute("activeWorkers", workerService.getActiveWorkers());
 
 	     model.addAttribute("workers", workers);
-//	     model.addAttribute("keyword", keyword);
+	     model.addAttribute("keyword", keyword);
 
 	     return "admin-worker-management";
 	 }
@@ -118,10 +119,10 @@ public class admin_controller {
 	    Worker w = workerRepository.findByEmail(email);
 	    
 
-	     if (w.getStatus().equals("ACTIVE"))
-	         w.setStatus("BLOCKED");
+	     if (w.getLogstatus().equals("ACTIVE"))
+	         w.setLogstatus("BLOCKED");
 	     else
-	         w.setStatus("ACTIVE");
+	         w.setLogstatus("ACTIVE");
 
 	     workerRepository.save(w);
 	     return "redirect:/admin-worker-management";

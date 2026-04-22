@@ -12,7 +12,7 @@ public interface WorkerDao {
     
     public List<Worker> getAllWorkers();
     
-    List<Worker> searchWorkers(String keyword);
+
     
 
 }

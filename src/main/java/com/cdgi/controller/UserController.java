@@ -97,9 +97,15 @@ public String login(@RequestParam String email,
     // 2. Check WORKER
     Worker worker = workerService.loginWorker(email, password);
     if (worker != null) {
+    	if("ACTIVE".equals(worker.getLogstatus())) {
         session.setAttribute("loggedUser", worker);
         session.setAttribute("role", "WORKER");
         return "worker-dashboard";
+    	}
+    	else {
+  		  model.addAttribute("errorMsg", "Account Blocked");
+  		  return "login";
+  	}
     }
 
     // 3. Check ADMIN (optional)

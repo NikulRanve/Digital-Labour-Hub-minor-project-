@@ -13,6 +13,6 @@ public interface WorkerRepository extends JpaRepository<Worker, String> {
 
     Worker findByEmail(String email);
     
-    List<Worker> findByFirstNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String FullName, String email);
+    List<Worker> findByFirstNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String firstName, String email);
 
 }

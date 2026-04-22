@@ -55,10 +55,6 @@ public class WorkerDaoImpl implements WorkerDao {
 		return workerRepository.findAll();
 	}
 
-	@Override
-	public List<Worker> searchWorkers(String keyword) {
-		return workerRepository.findByFirstNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword);
-		
-	}
+	
     
 }

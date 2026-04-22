@@ -376,21 +376,19 @@
 									</a>
 
 									<!-- 🚫 Block / Unblock -->
-									<a href="toggle-worker?id=<%=w.getEmail() %>"
+									<a href="toggle-worker?email=<%=w.getEmail()%>"
 										onclick="return confirm('Are you sure?')"
 										class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors
-        <%= "ACTIVE".equals(w.getLogstatus()) 
-               ? "border border-red-300 text-red-600 hover:bg-red-50" 
-               : "border border-green-300 text-green-600 hover:bg-green-50" %>">
+        <%="ACTIVE".equals(w.getLogstatus()) ? "border border-red-300 text-red-600 hover:bg-red-50"
+		: "border border-green-300 text-green-600 hover:bg-green-50"%>">
 
-										<span class="material-symbols-outlined text-lg">
-											 <%= "ACTIVE".equals(w.getLogstatus()) ? "block" : "check_circle" %></span>
+										<span class="material-symbols-outlined text-lg"> <%="ACTIVE".equals(w.getLogstatus()) ? "block" : "check_circle"%></span>
 
-										 <%= "ACTIVE".equals(w.getLogstatus()) ? "Block" : "Unblock" %>
+										<%="ACTIVE".equals(w.getLogstatus()) ? "Block" : "Unblock"%>
 									</a>
 
 									<!-- 🗑 Delete -->
-									<a href="delete-worker?id=${w.email}"
+									<a href="delete-worker?email=<%=w.getEmail()%>"
 										onclick="return confirm('Are you sure you want to delete this worker?')"
 										class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold 
        border border-gray-300 text-gray-700 hover:bg-gray-100 transiti.emailcolors">
@@ -400,13 +398,25 @@
 									</a>
 
 								</div>
-							</td>
+							</td>	
 
 						</tr>
+									
 						<%
 						}
 						}
 						%>
+						
+							<%
+							if (worker == null || worker.isEmpty()) {
+							%>
+							<tr>
+								<td colspan="7" class="text-center py-6 text-gray-500">No
+									worker found ❌</td>
+							</tr>
+							<%
+							}
+							%>
 
 					</tbody>
 

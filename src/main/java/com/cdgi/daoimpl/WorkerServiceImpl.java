@@ -2,7 +2,7 @@ package com.cdgi.daoimpl;
 
 
 import java.util.List;
-
+import com.cdgi.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,15 @@ import com.cdgi.pojo.Worker;
 @Service
 public class WorkerServiceImpl implements WorkerService {
 
+	@Autowired
+    private final WorkerRepository workerRepository;
+
     @Autowired
     private WorkerDao workerDao;
+
+    WorkerServiceImpl(WorkerRepository workerRepository) {
+        this.workerRepository = workerRepository;
+    }
 
     @Override
     public boolean registerWorker(Worker worker) {
@@ -49,7 +56,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<Worker> searchWorkers(String keyword) {
-        return workerDao.searchWorkers(keyword);
+        return workerRepository.findByFirstNameContainingIgnoreCaseOrEmailContainingIgnoreCase(keyword, keyword);
     }
 
     // 📊 Stats Logic moved here

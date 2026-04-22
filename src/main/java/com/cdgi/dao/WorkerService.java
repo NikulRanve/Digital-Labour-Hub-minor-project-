@@ -15,11 +15,11 @@ public interface WorkerService {
     
     public List<Worker> getAllWorkers();
  
-    List<Worker> searchWorkers(String keyword);
+    public List<Worker> searchWorkers(String keyword);
     
-    long getTotalWorkers();
-    long getPendingWorkers();
-    double getAverageRating();
-    long getActiveWorkers();
+    public long getTotalWorkers();
+    public long getPendingWorkers();
+    public double getAverageRating();
+    public long getActiveWorkers();
     
 }
