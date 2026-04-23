@@ -310,7 +310,7 @@
 
 									<div>
 										<p class="font-headline font-bold text-on-surface"><%=w.getFirstName() + w.getLastName()%></p>
-										<p class="text-xs text-outline font-medium">ID: #${w.id}</p>
+										<p class="text-xs text-outline font-medium"><%=w.getEmail() %></p>
 									</div>
 								</div>
 							</td>

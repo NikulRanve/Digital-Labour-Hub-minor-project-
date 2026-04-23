@@ -2,6 +2,7 @@ package com.cdgi.controller;
 
 
 import java.io.File;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,5 +95,15 @@ public class WorkerController {
             m.addAttribute("errorMsg", "Worker Already Exists ❌");
             return "worker_registration";
         }
+    }
+    
+    @GetMapping("/workers")
+    public String showWorkers(Model model) {
+
+        List<Worker> workers = workerService.getApprovedWorkers();
+
+        model.addAttribute("workers", workers);
+
+        return "user-dashboard";
     }
 }

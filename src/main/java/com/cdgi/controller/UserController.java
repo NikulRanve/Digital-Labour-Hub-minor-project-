@@ -3,6 +3,8 @@ import com.cdgi.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -111,6 +113,10 @@ public String login(@RequestParam String email,
     // 3. Check ADMIN (optional)
     if (email.equals("admin@gmail.com") && password.equals("admin123")) {
         session.setAttribute("role", "ADMIN");
+        
+        List<Worker> pendingWorkers = workerService.getPendingWorkers();
+
+        model.addAttribute("pendingWorkers", pendingWorkers);
         return "admin-dashboard";
     }
 

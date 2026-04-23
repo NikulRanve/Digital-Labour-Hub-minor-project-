@@ -67,7 +67,7 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public long getPendingWorkers() {
+    public long getPendingWorkerscount() {
         return workerDao.getAllWorkers().stream()
                 .filter(w -> "PENDING".equalsIgnoreCase(w.getStatus()))
                 .count();
@@ -90,5 +90,24 @@ public class WorkerServiceImpl implements WorkerService {
                 .count();
     }
     
+    @Override
+    public List<Worker> getApprovedWorkers() {
+        return workerRepository.findByStatus("APPROVED");
+    }
+    
+    @Override
+    public List<Worker> getPendingWorkers() {
+        return workerRepository.findByStatus("PENDING");
+    }
+    
+    @Override
+    public void updateStatus(String email, String status) {
+        Worker worker = workerRepository.findByEmail(email);
+
+        if (worker != null) {
+            worker.setStatus(status);
+            workerRepository.save(worker);
+        }
+    }
     
 }

@@ -79,7 +79,7 @@ public class admin_controller {
 
 	    
 	     model.addAttribute("totalWorkers", workerService.getTotalWorkers());
-	     model.addAttribute("pendingWorkers", workerService.getPendingWorkers());
+	     model.addAttribute("pendingWorkers", workerService.getPendingWorkerscount());
 	     model.addAttribute("avgRating", workerService.getAverageRating());
 	     model.addAttribute("activeWorkers", workerService.getActiveWorkers());
 
@@ -150,5 +150,17 @@ public class admin_controller {
 	     }
  
 	     return "redirect:/admin-worker-management";
+	 }
+	 
+	 @GetMapping("/approve-worker")
+	 public String approveWorker(@RequestParam String email) {
+	     workerService.updateStatus(email, "APPROVED");
+	     return "redirect:/admin-dashboard";
+	 }
+	 
+	 @GetMapping("/reject-worker")
+	 public String rejectWorker(@RequestParam String email) {
+	     workerService.updateStatus(email, "REJECTED");
+	     return "redirect:/admin-dashboard";
 	 }
 }

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.cdgi.pojo.Worker"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -311,46 +313,88 @@ h1, h2, h3, h4 {
 								<th
 									class="px-6 py-4 font-label text-xs uppercase tracking-widest text-outline">Status</th>
 								<th
-									class="px-6 py-4 font-label text-xs uppercase tracking-widest text-outline text-right">Actions</th>
+									class="px-6 py-4 font-label text-xs uppercase tracking-widest text-outline text-center ">Actions</th>
 							</tr>
 						</thead>
+						
+
 						<tbody class="divide-y divide-surface-container">
-							<tr
-								class="hover:bg-surface-container-low/50 transition-colors group">
-								<td class="px-6 py-5">
-									<div class="flex items-center gap-4">
-										<img alt="Worker" class="w-10 h-10 rounded-lg object-cover"
-											src="https://lh3.googleusercontent.com/aida-public/AB6AXuChUx9fyuqjQCx0X_40sxhKBF1kiPysDVxbj_45LWqZVIAXc6WSXOBTH3OdYAngsZmOVdwgNTFeBmd-18XlYLkjcof8ADKF_Eq-Dth3Q--CNX6n5E2bXwzp7BoGQZWfpS12wToGV_L8m-Te_W4Am0OF3ptXSYQZPvB4yvYpMBTbR9iprMEe2j0VxwqRwhj5e5bOmturx_QYVcgj-5JGW4uWdQ0psUYmDHC-ZHQ-yEZ9YEYAR7M68atJn5j_UtNL37CAbDDe3mOnCjQ" />
-										<div>
-											<div class="font-headline font-bold text-on-surface">Elena
-												Rodriguez</div>
-											<div class="text-xs text-outline">elena.r@example.com</div>
+
+								<%
+				List<Worker> worker = (List<Worker>) request.getAttribute("pendingWorkers");
+
+				if (worker != null) {
+
+					for (Worker w : worker) {
+				%>
+
+								<tr
+									class="hover:bg-surface-container-low/50 transition-colors group">
+
+									<!-- 👤 Worker -->
+									<td class="px-6 py-5">
+										<div class="flex items-center gap-4">
+
+											<img class="w-10 h-10 rounded-lg object-cover"
+												src="profile/<%=w.getProfilephoto()%> alt="worker image" />
+
+											<div>
+												<div class="font-headline font-bold text-on-surface">
+													<%=w.getFirstName() %><%=w.getLastName() %></div>
+												<div class="text-xs text-outline"><%=w.getEmail() %></div>
+											</div>
+
 										</div>
-									</div>
-								</td>
-								<td class="px-6 py-5">
-									<div class="flex gap-1">
-										<span
-											class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Carpentry</span>
-									</div>
-								</td>
-								<td class="px-6 py-5 text-sm text-on-surface-variant">Oct
-									24, 2023</td>
-								<td class="px-6 py-5"><span
-									class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-xs font-semibold">Reviewing</span>
-								</td>
-								<td class="px-6 py-5 text-right space-x-2 whitespace-nowrap">
-									<button
-										class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-primary text-primary font-bold text-xs hover:bg-primary/5 transition-all"
-										onclick="document.getElementById('verification-modal').classList.remove('hidden')">
-										<span class="material-symbols-outlined text-sm"
-											data-icon="description">description</span> View Documents
-									</button>
-									<button
-										class="inline-flex items-center justify-center h-8 px-4 rounded-lg bg-primary text-on-primary font-bold text-xs hover:opacity-90 transition-all">
-										Approve</button>
-								</td>
-							</tr>
+									</td>
+
+									<!-- 🛠 Skill -->
+									<td class="px-6 py-5"><span
+										class="bg-primary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold">
+											<%=w.getSkills() %> </span></td>
+
+									<!-- 📅 Applied Date -->
+									<td class="px-6 py-5 text-sm text-on-surface-variant">
+										${w.createdDate}</td>
+
+									<!-- 📌 Status -->
+									<td class="px-6 py-5"><span
+										class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold">
+											<%=w.getStatus() %> </span></td>
+
+									<!-- ⚙ Actions -->
+									<td class="px-6 py-5 text-right space-x-2">
+										<!-- 📄 View Docs --> <a href="view-documents?id=<%=w.getEmail() %>"
+										class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-primary text-primary text-xs font-bold">
+
+											<span class="material-symbols-outlined text-sm">description</span>
+											View Documents
+									</a> <!-- ✅ Approve --> <a href="approve-worker?email=<%=w.getEmail() %>"
+										onclick="return confirm('Approve this worker?')"
+										class="inline-flex items-center justify-center h-8 px-4 rounded-lg bg-green-600 text-white text-xs font-bold">
+
+											Approve </a> <!-- ❌ Reject --> <a href="reject-worker?email=<%=w.getEmail() %>"
+										onclick="return confirm('Reject this worker?')"
+										class="inline-flex items-center justify-center h-8 px-4 rounded-lg bg-red-600 text-white text-xs font-bold">
+
+											Reject </a>
+
+									</td>
+
+								</tr>
+
+							<%}
+					}%>
+				
+
+							<!-- ❌ No Data -->
+						<%if (worker == null || worker.isEmpty()) { %>
+								<tr>
+									<td colspan="5" class="text-center py-6 text-gray-500">No
+										pending workers ❌</td>
+								</tr>
+								<%} %>
+								
+				
 						</tbody>
 					</table>
 				</div>
