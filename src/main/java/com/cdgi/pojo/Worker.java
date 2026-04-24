@@ -228,6 +228,18 @@ public class Worker {
 	public void setLogstatus(String logstatus) {
 		this.logstatus = logstatus;
 	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public void setRating(double rating) {
+		Rating = rating;
+	}
 	
 	
 	// Getters & Setters

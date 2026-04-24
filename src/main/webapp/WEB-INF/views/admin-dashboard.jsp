@@ -336,7 +336,7 @@ h1, h2, h3, h4 {
 										<div class="flex items-center gap-4">
 
 											<img class="w-10 h-10 rounded-lg object-cover"
-												src="profile/<%=w.getProfilephoto()%> alt="worker image" />
+												src="profile/<%=w.getProfilephoto()%>" alt="worker image" />
 
 											<div>
 												<div class="font-headline font-bold text-on-surface">
@@ -354,7 +354,7 @@ h1, h2, h3, h4 {
 
 									<!-- 📅 Applied Date -->
 									<td class="px-6 py-5 text-sm text-on-surface-variant">
-										${w.createdDate}</td>
+										<%=w.getCreatedAt() %></td>
 
 									<!-- 📌 Status -->
 									<td class="px-6 py-5"><span

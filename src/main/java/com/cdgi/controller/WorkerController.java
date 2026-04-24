@@ -97,13 +97,5 @@ public class WorkerController {
         }
     }
     
-    @GetMapping("/workers")
-    public String showWorkers(Model model) {
 
-        List<Worker> workers = workerService.getApprovedWorkers();
-
-        model.addAttribute("workers", workers);
-
-        return "user-dashboard";
-    }
 }

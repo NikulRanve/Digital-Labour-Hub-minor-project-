@@ -237,16 +237,17 @@
 					<!-- Image -->
 					<div class="relative w-full sm:w-32 h-32 flex-shrink-0">
 						<img class="w-full h-full object-cover rounded-xl"
-							src="profile/<%=w.getProfilephoto()%> alt="worker image" />
+							src="profile/<%=w.getProfilephoto()%>" alt="worker image" >
 
 						<!-- Verified Badge -->
-						<c:if test="${w.status eq 'APPROVED'}">
+					<% %>
 							<span
 								class="absolute -top-2 -right-2 bg-primary-fixed px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-sm">
 								<span class="material-symbols-outlined text-xs">verified</span>
 								VERIFIED
 							</span>
-						</c:if>
+							<% 
+								%>
 					</div>
 
 					<!-- Content -->
@@ -270,7 +271,7 @@
 									<%=w.getSkills() %> </span>
 							</div>
 
-							<!-- Description -->
+			+ 				<!-- Description -->
 							<p class="mt-3 text-sm text-on-surface-variant">
 								${w.description}</p>
 						</div>
@@ -284,7 +285,7 @@
 							</div>
 
 							<!-- Book Button -->
-							<a href="book-worker?id=${w.id}"
+							<a href="book-worker?email=<%=w.getEmail() %>"
 								class="px-6 py-2.5 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:opacity-90 text-sm">
 								Book Now </a>
 						</div>

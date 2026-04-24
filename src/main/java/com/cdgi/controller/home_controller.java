@@ -13,48 +13,55 @@ import com.cdgi.pojo.Worker;
 
 import org.springframework.ui.Model;
 
-
 @Controller
 public class home_controller {
-	
-	 @Autowired
-	    private WorkerService workerService;
-	
-	 @GetMapping("/")
-	    public String home() {
-	        return "index";
-	    }
-	 @GetMapping("index")
-	 public String homepage() {
-		 return "index";
-	 }
-	 @GetMapping("worker_registration")
-	 public String wregister() {
-		 return "worker_registration";
-	 }
-	 @GetMapping("user_registration")
-	 public String uregister() {
-		 return "user_registration";
-	 }
-	 @GetMapping("login")
-	 public String loginpage() {
-		 return "login";
-	 }
-	 @GetMapping("contact")
-	 public String contactpage() {
-		 return "contact";
-	 }
-	 @GetMapping("admin-dashboard")
-	 public String adminpage( Model model) {
-		 List<Worker> pendingWorkers = workerService.getPendingWorkers();
 
-	        model.addAttribute("pendingWorkers", pendingWorkers);
-		 return "admin-dashboard";
-	 }
-	 @GetMapping("user-dashboard")
-	 public String userpage() {
-		 return "user-dashboard";
-	 }
-	 
+	@Autowired
+	private WorkerService workerService;
+
+	@GetMapping("/")
+	public String home() {
+		return "index";
+	}
+
+	@GetMapping("index")
+	public String homepage() {
+		return "index";
+	}
+
+	@GetMapping("worker_registration")
+	public String wregister() {
+		return "worker_registration";
+	}
+
+	@GetMapping("user_registration")
+	public String uregister() {
+		return "user_registration";
+	}
+
+	@GetMapping("login")
+	public String loginpage() {
+		return "login";
+	}
+
+	@GetMapping("contact")
+	public String contactpage() {
+		return "contact";
+	}
+
+	@GetMapping("admin-dashboard")
+	public String adminpage(Model model) {
+		List<Worker> pendingWorkers = workerService.getPendingWorkers();
+		model.addAttribute("pendingWorkers", pendingWorkers);
+		return "admin-dashboard";
+	}
+
+	@GetMapping("user-dashboard")
+	public String userpage(Model model) {
+		List<Worker> workers = workerService.getApprovedWorkers();
+
+		model.addAttribute("workers", workers);
+		return "user-dashboard";
+	}
 
 }
